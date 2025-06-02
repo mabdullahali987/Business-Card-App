@@ -1,4 +1,4 @@
-# flutter_practice_project
+# BUSINESS CARD App in Flutter 
 
 A new Flutter project.
 
