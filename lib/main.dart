@@ -52,21 +52,17 @@ class _MyAppState extends State<MyApp> {
               ),
               TextField(
                   controller: nameController,
-                  decoration: InputDecoration(
-                    labelText: "Name",
-                  )),
+                  decoration: InputDecoration(labelText: "Name")),
               TextField(
                   controller: jobController,
-                  decoration: InputDecoration(labelText: "job")),
+                  decoration: InputDecoration(labelText: "Job")),
               TextField(
                   controller: emailController,
-                  decoration: InputDecoration(labelText: 'email')),
+                  decoration: InputDecoration(labelText: "Email")),
               TextField(
                   controller: phoneController,
-                  decoration: InputDecoration(labelText: "phone")),
-              SizedBox(
-                height: 10.0,
-              ),
+                  decoration: InputDecoration(labelText: "Phone")),
+              SizedBox(height: 10.0),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                 onPressed: () {
@@ -110,59 +106,68 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       backgroundColor: Colors.orange,
       body: SafeArea(
-        child: Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Obx(() => CircleAvatar(
-                    radius: 120.0,
-                    backgroundImage: imagepickerController.imagePath.isNotEmpty
-                        ? FileImage(
-                            File(imagepickerController.imagePath.toString()))
-                        : null,
-                  )),
-              Text(
-                name,
-                style: TextStyle(
-                    color: Colors.black, fontSize: 30.0, fontFamily: 'Fugaz'),
-              ),
-              Text(
-                job,
-                style: TextStyle(
-                    color: Colors.black, fontSize: 30.0, fontFamily: 'Passion'),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
-                color: Colors.white30,
-                child: Row(
-                  children: [
-                    Icon(Icons.email_outlined),
-                    SizedBox(width: 7.0),
-                    Text(
-                      email,
-                      style: TextStyle(color: Colors.black, fontSize: 20.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(() => CircleAvatar(
+                        radius: 120.0,
+                        backgroundImage:
+                            imagepickerController.imagePath.isNotEmpty
+                                ? FileImage(File(
+                                    imagepickerController.imagePath.toString()))
+                                : null,
+                      )),
+                  Text(
+                    name,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30.0,
+                        fontFamily: 'Fugaz'),
+                  ),
+                  Text(
+                    job,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30.0,
+                        fontFamily: 'Passion'),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                    margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
+                    color: Colors.white30,
+                    child: Row(
+                      children: [
+                        Icon(Icons.email_outlined),
+                        SizedBox(width: 7.0),
+                        Text(
+                          email,
+                          style: TextStyle(color: Colors.black, fontSize: 20.0),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
-                color: Colors.white30,
-                child: Row(
-                  children: [
-                    Icon(Icons.phone_android_outlined),
-                    SizedBox(width: 7.0),
-                    Text(
-                      phone,
-                      style: TextStyle(color: Colors.black, fontSize: 20.0),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                    margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
+                    color: Colors.white30,
+                    child: Row(
+                      children: [
+                        Icon(Icons.phone_android_outlined),
+                        SizedBox(width: 7.0),
+                        Text(
+                          phone,
+                          style: TextStyle(color: Colors.black, fontSize: 20.0),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
