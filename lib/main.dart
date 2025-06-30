@@ -115,70 +115,90 @@ class _MyAppState extends State<MyApp> {
             Expanded(
               child: Screenshot(
                 controller: screenshotController,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Obx(() => CircleAvatar(
-                          radius: 120.0,
-                          backgroundImage: imagepickerController
-                                  .imagePath.isNotEmpty
-                              ? FileImage(File(
-                                  imagepickerController.imagePath.toString()))
-                              : null,
-                        )),
-                    Text(
-                      name,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30.0,
-                          fontFamily: 'Fugaz'),
-                    ),
-                    Text(
-                      job,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30.0,
-                          fontFamily: 'Passion'),
-                    ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
-                      color: Colors.white30,
-                      child: Row(
-                        children: [
-                          Icon(Icons.email_outlined),
-                          SizedBox(width: 7.0),
-                          Text(
-                            email,
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20.0),
-                          ),
-                        ],
+                child: Container(
+                  color: Colors.orange,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Obx(() => CircleAvatar(
+                            radius: 120.0,
+                            backgroundImage: imagepickerController
+                                    .imagePath.value.isNotEmpty
+                                ? FileImage(
+                                    File(imagepickerController.imagePath.value))
+                                : null,
+                          )),
+                      Text(
+                        name,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30.0,
+                            fontFamily: 'Fugaz'),
                       ),
-                    ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
-                      color: Colors.white30,
-                      child: Row(
-                        children: [
-                          Icon(Icons.phone_android_outlined),
-                          SizedBox(width: 7.0),
-                          Text(
-                            phone,
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20.0),
-                          ),
-                        ],
+                      Text(
+                        job,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 30.0,
+                            fontFamily: 'Passion'),
                       ),
-                    ),
-                  ],
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
+                        color: Colors.white30,
+                        child: Row(
+                          children: [
+                            Icon(Icons.email_outlined),
+                            SizedBox(width: 7.0),
+                            Text(
+                              email,
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 17.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
+                        color: Colors.white30,
+                        child: Row(
+                          children: [
+                            Icon(Icons.phone_android_outlined),
+                            SizedBox(width: 7.0),
+                            Text(
+                              phone,
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 20.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
+            ),
+            ElevatedButton.icon(
+              onPressed: () async {
+                final image = await screenshotController.capture();
+                if (image == null) return;
+                final directory = await getTemporaryDirectory();
+                final imagePath =
+                    await File('${directory.path}/card.png').create();
+                await imagePath.writeAsBytes(image);
+                await Share.shareXFiles([XFile(imagePath.path)],
+                    text: 'Here is my digital card!');
+              },
+              icon: Icon(Icons.share),
+              label: Text(
+                "Share",
+              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white30),
             ),
           ],
         ),
