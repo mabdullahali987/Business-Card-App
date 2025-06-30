@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_practice_project/image_picker_controller.dart';
 import 'package:get/get.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
 void main() {
@@ -30,6 +33,7 @@ class _MyAppState extends State<MyApp> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final imagepickerController = Get.put(ImagePickerController());
+  final ScreenshotController screenshotController = ScreenshotController();
 
   void showInputForm() {
     showDialog(
@@ -109,62 +113,71 @@ class _MyAppState extends State<MyApp> {
         child: Column(
           children: [
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Obx(() => CircleAvatar(
-                        radius: 120.0,
-                        backgroundImage:
-                            imagepickerController.imagePath.isNotEmpty
-                                ? FileImage(File(
-                                    imagepickerController.imagePath.toString()))
-                                : null,
-                      )),
-                  Text(
-                    name,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30.0,
-                        fontFamily: 'Fugaz'),
-                  ),
-                  Text(
-                    job,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30.0,
-                        fontFamily: 'Passion'),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                    margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
-                    color: Colors.white30,
-                    child: Row(
-                      children: [
-                        Icon(Icons.email_outlined),
-                        SizedBox(width: 7.0),
-                        Text(
-                          email,
-                          style: TextStyle(color: Colors.black, fontSize: 20.0),
-                        ),
-                      ],
+              child: Screenshot(
+                controller: screenshotController,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Obx(() => CircleAvatar(
+                          radius: 120.0,
+                          backgroundImage: imagepickerController
+                                  .imagePath.isNotEmpty
+                              ? FileImage(File(
+                                  imagepickerController.imagePath.toString()))
+                              : null,
+                        )),
+                    Text(
+                      name,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30.0,
+                          fontFamily: 'Fugaz'),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                    margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
-                    color: Colors.white30,
-                    child: Row(
-                      children: [
-                        Icon(Icons.phone_android_outlined),
-                        SizedBox(width: 7.0),
-                        Text(
-                          phone,
-                          style: TextStyle(color: Colors.black, fontSize: 20.0),
-                        ),
-                      ],
+                    Text(
+                      job,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30.0,
+                          fontFamily: 'Passion'),
                     ),
-                  ),
-                ],
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
+                      color: Colors.white30,
+                      child: Row(
+                        children: [
+                          Icon(Icons.email_outlined),
+                          SizedBox(width: 7.0),
+                          Text(
+                            email,
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 20.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 5.0),
+                      color: Colors.white30,
+                      child: Row(
+                        children: [
+                          Icon(Icons.phone_android_outlined),
+                          SizedBox(width: 7.0),
+                          Text(
+                            phone,
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 20.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
